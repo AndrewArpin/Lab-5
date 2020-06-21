@@ -1,9 +1,14 @@
 const viewPath = ('superheroes');
 const Superhero = require('../models/superhero');
+const superhero = require('../models/superhero');
 
 exports.index = async (req, res) => {
   try {
-    
+    const superheroes = await Superhero.find();
+    res.render(`${viewPath}/index`,{
+      pageTitle: 'Superhero List',
+      superheroes: superheroes
+    })
   } catch (error) {
     req.flash('danger', 'There was an issue fetching the superheroes list');
     res.redirect('/');
@@ -28,7 +33,7 @@ exports.new = (req, res) => {
   try {
     res.render(`${viewPath}/new`, {
       pageTitle: ''
-    })
+    });
   } catch (error) {
     req.flash('danger', 'There was an issue fetching the superheroes list');
     res.redirect('/');
@@ -54,7 +59,7 @@ exports.edit = async (req, res) => {
     res.render(`${viewPath}/edit`, {
       pageTitle: '',
       formData: superhero
-    })
+    });
   } catch (error) {
     req.flash('danger', 'There was an issue fetching the superheroes list');
     res.redirect('/');
